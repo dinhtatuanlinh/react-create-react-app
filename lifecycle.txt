@@ -1,0 +1,28 @@
+// lifecycle useEffect
+callback trong useEffect sẽ được gọi sau khi component được mount
+nếu useEffect không có dependency thì callback sẽ được gọi lại khi component được re-render. gọi callback sau khi component được thêm vào dom
+với useEffect có dependency là [] thì callback chỉ được gọi 1 lần sau khi component được mount
+với useEffect có dependency là [deps] thì callback sẽ được gọi lại sau khi deps thay đổi
+khi gọi tới các event listener trong useEffect cần phải dùng các cleanup function để clear các event này đi để tránh gọi lại các event chồng lên nhau sau khi gọi lại callback trong useEffect
+clean up function luon gọi trước khi callback được gọi
+// lifecycle useLayoutEffect
+tương tự như useEffect useLayoutEffect sẽ có các thuộc tính tương tự như useEffect 
+tuy nhiên đối với useLayoutEffect callback của nó sẽ được gọi trước khi re-render lại UI
+// lifecycle useRef
+giá trị khởi tạo chỉ được khởi tao trong hàm đầu về sau sẽ không sử dụng lại giá trị khởi tạo nữa
+// useCallback
+đối với hàm có sử dụng useCallback lần đầu hàm đó sẽ được chạy sau đó hàm useCallback sẽ được lưu ra ngoài giúp cho component sử dụng props là hàm được truyền callback ko cần re-render lại nữa
+useCallback sử dùng cùng với memo để đảm bảo component memo không bị gọi lại khi 1 hàm được truyền vào như 1 props
+// useMemo
+dùng để lưu nhớ hàm được bọc khi deps không thay đổi thì hàm đó sẽ ko được thực hiện
+// useReducer
+nhận vào 1 function và 1 giá trị khởi tạo
+ở lần chạy đầu tiên function nhận vào sẽ chưa được chạy
+giá trị khởi tạo sẽ được gắn vào giá trị đầu tiên
+khi dispatch được gọi thì function truyền vào useReducer mới được chạy và function này sẽ thay đổi state
+hàm được truyền vào useReducer sẽ gồm 2 giá trị 1 là state 2 là action
+// context useContext
+Dùng để truyền dữ liệu từ component cha tới component con
+tại component cha sử dụng createContext để tạo ra 1 component, component này sẽ được export ra và dùng nó bọc lấy component cha ví dụ là ThemeContext.provider value={dữ liệu muốn truyền}
+tại component con muốn nhận dữ liệu từ component cha thì import component cha vào sau đó sử dụng useContext để lấy dữ liệu được chuyền từ component cha để sử dụng
+* ngoài ra có thể tạo 1 file context.js riêng chứa các dữ liệu và hàm xử lý
