@@ -3,7 +3,6 @@ import { ThemeContext } from './ThemeContext';
 import Text from './text'
 
 
-
 function ContextUseContext() {
     const context = useContext(ThemeContext)
 
