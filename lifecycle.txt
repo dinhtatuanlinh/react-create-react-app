@@ -26,3 +26,7 @@ Dùng để truyền dữ liệu từ component cha tới component con
 tại component cha sử dụng createContext để tạo ra 1 component, component này sẽ được export ra và dùng nó bọc lấy component cha ví dụ là ThemeContext.provider value={dữ liệu muốn truyền}
 tại component con muốn nhận dữ liệu từ component cha thì import component cha vào sau đó sử dụng useContext để lấy dữ liệu được chuyền từ component cha để sử dụng
 * ngoài ra có thể tạo 1 file context.js riêng chứa các dữ liệu và hàm xử lý
+// useImperativeHandle
+hook này dùng để tùy chỉnh ref của 1 element
+(forwardRef dùng để truyền useRef từ component cha xuống component con để sử dụng) nếu đưa hết useRef ra ngoài là không nên vì đã public ra ngoài những function không cần thiết
+do vậy useImperativeHandle thể hiện tính đóng gói của lập trinh chỉ cấp ra ngoài những function mà được cho phép sử dụng ra ngoài
