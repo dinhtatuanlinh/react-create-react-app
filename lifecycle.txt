@@ -1,32 +1,52 @@
+// useState
+    const [state, setState] = useState(initState)
+    initState là giá trị khởi tạo của state 
+    set lại state thì dụng hàm setState thì giá trị của state sẽ thay đổi
+    lifecycle useState lần đầu đọc code từ trên xuống giá trị khởi tạo initState nên state bằng initState, render ra giao diện
+    sau khi thực thi setState thì state thay đổi component render lại từ trên xuống, lần này ko lấy giá trị khởi tạo mà lấy state theo giá trị mới
+    nếu gọi nhiều lần setState trong 1 hàm thì sẽ chỉ render 1 lần sau lần setState cuối cùng
+    khi sử dụng callback trong setState(prevState=>prevState + 1) thì lúc này nếu gọi nhiều lần setState thì prevState sẽ thay đổi mỗi khi gọi setState
+    {
+        setState(prevState=>prevState + 1)
+        setState(prevState=>prevState + 1)
+        setState(prevState=>prevState + 1)
+    }
+    tuy nhiên component cũng chỉ render lại 1 lần sau khi setState cuối cùng được gọi
+    có thể đưa vào useState(callback) để làm giá trị initState
+// two-way binding
+    ràng buộc 1 chiều 
+    ràng buộc 2 chiều 
 // lifecycle useEffect
-callback trong useEffect sẽ được gọi sau khi component được mount
-nếu useEffect không có dependency thì callback sẽ được gọi lại khi component được re-render. gọi callback sau khi component được thêm vào dom
-với useEffect có dependency là [] thì callback chỉ được gọi 1 lần sau khi component được mount
-với useEffect có dependency là [deps] thì callback sẽ được gọi lại sau khi deps thay đổi
-khi gọi tới các event listener trong useEffect cần phải dùng các cleanup function để clear các event này đi để tránh gọi lại các event chồng lên nhau sau khi gọi lại callback trong useEffect
-clean up function luon gọi trước khi callback được gọi
+    callback trong useEffect sẽ được gọi sau khi component được mount
+    nếu useEffect không có dependency thì callback sẽ được gọi lại khi component được re-render. gọi callback sau khi component được thêm vào dom
+    với useEffect có dependency là [] thì callback chỉ được gọi 1 lần sau khi component được mount
+    với useEffect có dependency là [deps] thì callback sẽ được gọi lại sau khi deps thay đổi
+    khi gọi tới các event listener trong useEffect cần phải dùng các cleanup function để clear các event này đi để tránh gọi lại các event chồng lên nhau sau khi gọi lại callback trong useEffect
+    clean up function được đặt trong useEffect clean up function chỉ được gọi khi unmount được thực hiện
+    clean up function luon gọi trước khi callback được gọi
+    cleanup
 // lifecycle useLayoutEffect
-tương tự như useEffect useLayoutEffect sẽ có các thuộc tính tương tự như useEffect 
-tuy nhiên đối với useLayoutEffect callback của nó sẽ được gọi trước khi re-render lại UI
+    tương tự như useEffect useLayoutEffect sẽ có các thuộc tính tương tự như useEffect 
+    tuy nhiên đối với useLayoutEffect callback của nó sẽ được gọi trước khi re-render lại UI
 // lifecycle useRef
-giá trị khởi tạo chỉ được khởi tao trong hàm đầu về sau sẽ không sử dụng lại giá trị khởi tạo nữa
+    giá trị khởi tạo chỉ được khởi tao trong hàm đầu về sau sẽ không sử dụng lại giá trị khởi tạo nữa
 // useCallback
-đối với hàm có sử dụng useCallback lần đầu hàm đó sẽ được chạy sau đó hàm useCallback sẽ được lưu ra ngoài giúp cho component sử dụng props là hàm được truyền callback ko cần re-render lại nữa
-useCallback sử dùng cùng với memo để đảm bảo component memo không bị gọi lại khi 1 hàm được truyền vào như 1 props
+    đối với hàm có sử dụng useCallback lần đầu hàm đó sẽ được chạy sau đó hàm useCallback sẽ được lưu ra ngoài giúp cho component sử dụng props là hàm được truyền callback ko cần re-render lại nữa
+    useCallback sử dùng cùng với memo để đảm bảo component memo không bị gọi lại khi 1 hàm được truyền vào như 1 props
 // useMemo
-dùng để lưu nhớ hàm được bọc khi deps không thay đổi thì hàm đó sẽ ko được thực hiện
+    dùng để lưu nhớ hàm được bọc khi deps không thay đổi thì hàm đó sẽ ko được thực hiện
 // useReducer
-nhận vào 1 function và 1 giá trị khởi tạo
-ở lần chạy đầu tiên function nhận vào sẽ chưa được chạy
-giá trị khởi tạo sẽ được gắn vào giá trị đầu tiên
-khi dispatch được gọi thì function truyền vào useReducer mới được chạy và function này sẽ thay đổi state
-hàm được truyền vào useReducer sẽ gồm 2 giá trị 1 là state 2 là action
+    nhận vào 1 function và 1 giá trị khởi tạo
+    ở lần chạy đầu tiên function nhận vào sẽ chưa được chạy
+    giá trị khởi tạo sẽ được gắn vào giá trị đầu tiên
+    khi dispatch được gọi thì function truyền vào useReducer mới được chạy và function này sẽ thay đổi state
+    hàm được truyền vào useReducer sẽ gồm 2 giá trị 1 là state 2 là action
 // context useContext
-Dùng để truyền dữ liệu từ component cha tới component con
-tại component cha sử dụng createContext để tạo ra 1 component, component này sẽ được export ra và dùng nó bọc lấy component cha ví dụ là ThemeContext.provider value={dữ liệu muốn truyền}
-tại component con muốn nhận dữ liệu từ component cha thì import component cha vào sau đó sử dụng useContext để lấy dữ liệu được chuyền từ component cha để sử dụng
-* ngoài ra có thể tạo 1 file context.js riêng chứa các dữ liệu và hàm xử lý
+    Dùng để truyền dữ liệu từ component cha tới component con
+    tại component cha sử dụng createContext để tạo ra 1 component, component này sẽ được export ra và dùng nó bọc lấy component cha ví dụ là ThemeContext.provider value={dữ liệu muốn truyền}
+    tại component con muốn nhận dữ liệu từ component cha thì import component cha vào sau đó sử dụng useContext để lấy dữ liệu được chuyền từ component cha để sử dụng
+    * ngoài ra có thể tạo 1 file context.js riêng chứa các dữ liệu và hàm xử lý
 // useImperativeHandle
-hook này dùng để tùy chỉnh ref của 1 element
-(forwardRef dùng để truyền useRef từ component cha xuống component con để sử dụng) nếu đưa hết useRef ra ngoài là không nên vì đã public ra ngoài những function không cần thiết
-do vậy useImperativeHandle thể hiện tính đóng gói của lập trinh chỉ cấp ra ngoài những function mà được cho phép sử dụng ra ngoài
+    hook này dùng để tùy chỉnh ref của 1 element
+    (forwardRef dùng để truyền useRef từ component cha xuống component con để sử dụng) nếu đưa hết useRef ra ngoài là không nên vì đã public ra ngoài những function không cần thiết
+    do vậy useImperativeHandle thể hiện tính đóng gói của lập trinh chỉ cấp ra ngoài những function mà được cho phép sử dụng ra ngoài
