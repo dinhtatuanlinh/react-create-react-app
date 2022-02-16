@@ -30,10 +30,20 @@
     tuy nhiên đối với useLayoutEffect callback của nó sẽ được gọi trước khi re-render lại UI
 // lifecycle useRef
     giá trị khởi tạo chỉ được khởi tao trong hàm đầu về sau sẽ không sử dụng lại giá trị khởi tạo nữa
+    có thể sử dụng useRef để lấy Dom element bằng cách khai báo 1 const h1Ref = useRef() sau đó truyền nó vào dom <h1 ref={h1Ref}>abc</h1>
+    sau đó ta có thể lấy các thông tin của h1 bằng h1Ref.current.getBoundingClientRect() hàm này sẽ trả về vị trí và kích thước của dom
+// react.memo()
+    là 1 HOC
+    khi có một component con ở trong component cha mà khi component cha render lại thì component con cũng render lại theo. Trong khi đó nội dung trong component con không 
+    có gì thay đổi cả. Điều này làm cho việc render lại là không cần thiết. khi đó ta dùng useMemo để bọc lại component con. Giúp cho component con không cần 
+    phải render lại khi nó không có gì thay đổi trong quá trình component cha render lại
+    cách dùng là memo(content) bọc component con bằng memo
 // useCallback
     đối với hàm có sử dụng useCallback lần đầu hàm đó sẽ được chạy sau đó hàm useCallback sẽ được lưu ra ngoài giúp cho component sử dụng props là hàm được truyền callback ko cần re-render lại nữa
     useCallback sử dùng cùng với memo để đảm bảo component memo không bị gọi lại khi 1 hàm được truyền vào như 1 props
 // useMemo
+    dùng để tránh thực hiện lại một logic không cần thiết
+    
     dùng để lưu nhớ hàm được bọc khi deps không thay đổi thì hàm đó sẽ ko được thực hiện
 // useReducer
     nhận vào 1 function và 1 giá trị khởi tạo
