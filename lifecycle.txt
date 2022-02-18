@@ -17,6 +17,7 @@
     ràng buộc 1 chiều 
     ràng buộc 2 chiều 
 // lifecycle useEffect
+    sử dụng khi có tác động xảy ra làm dữ liệu thanh đổi
     callback trong useEffect sẽ được gọi sau khi component được mount
     nếu useEffect không có dependency thì callback sẽ được gọi lại khi component được re-render. gọi callback sau khi component được thêm vào dom
     với useEffect có dependency là [] thì callback chỉ được gọi 1 lần sau khi component được mount
